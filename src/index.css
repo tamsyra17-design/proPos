@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-primary: var(--primary-color, #2563eb);
+  --color-primary-dark: var(--primary-color-dark, #1d4ed8);
+  --color-primary-light: var(--primary-color-light, #eff6ff);
+}
+
+@layer base {
+  :root {
+    --primary-color: #2563eb;
+    --primary-color-dark: #1d4ed8;
+    --primary-color-light: #eff6ff;
+  }
+
+  .dark {
+    --primary-color-light: color-mix(in srgb, var(--primary-color) 15%, transparent);
+    background-color: #0f172a;
+    color: #f8fafc;
+  }
+
+  body {
+    @apply font-sans bg-[#F8FAFC] text-slate-900 antialiased transition-colors duration-200;
+  }
+
+  .dark body {
+    @apply bg-slate-900 text-slate-100;
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
+  }
+  
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-slate-700 hover:bg-slate-600;
+  }
+  
+  .geometric-card {
+    @apply bg-white border border-slate-100 shadow-sm rounded-xl overflow-hidden transition-colors duration-200;
+  }
+
+  .dark .geometric-card {
+    @apply bg-slate-800 border-slate-700 shadow-none;
+  }
+
+  .geometric-table th {
+    @apply px-6 py-3 bg-slate-50 text-[10px] uppercase font-bold text-slate-400 tracking-wider transition-colors;
+  }
+
+  .dark .geometric-table th {
+    @apply bg-slate-900/50 text-slate-500 border-slate-700;
+  }
+
+  .geometric-badge {
+    @apply px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider transition-colors;
+  }
+}
+

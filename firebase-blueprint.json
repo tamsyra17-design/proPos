@@ -1,0 +1,170 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Inventory product with stock and pricing details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "sku": { "type": "string" },
+        "categoryId": { "type": "string" },
+        "brand": { "type": "string" },
+        "unit": { "type": "string" },
+        "purchasePrice": { "type": "number" },
+        "sellingPrice": { "type": "number" },
+        "stockQuantity": { "type": "number" },
+        "alertQuantity": { "type": "number" },
+        "imageUrl": { "type": "string" },
+        "branchId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "sku", "sellingPrice", "stockQuantity"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product category",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" }
+      },
+      "required": ["name"]
+    },
+    "Branch": {
+      "title": "Branch",
+      "description": "Business branch or location",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "location": { "type": "string" },
+        "phone": { "type": "string" }
+      },
+      "required": ["name"]
+    },
+    "Sale": {
+      "title": "Sale",
+      "description": "Sales transaction record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "invoiceNumber": { "type": "string" },
+        "customerId": { "type": "string" },
+        "branchId": { "type": "string" },
+        "totalAmount": { "type": "number" },
+        "discount": { "type": "number" },
+        "tax": { "type": "number" },
+        "paidAmount": { "type": "number" },
+        "paymentMethod": { "type": "string" },
+        "cashierId": { "type": "string" },
+        "status": { "type": "string", "enum": ["paid", "partial", "due"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["invoiceNumber", "totalAmount", "paidAmount", "createdAt"]
+    },
+    "SaleItem": {
+      "title": "Sale Item",
+      "description": "Individual product within a sale",
+      "type": "object",
+      "properties": {
+        "productId": { "type": "string" },
+        "productName": { "type": "string" },
+        "quantity": { "type": "number" },
+        "unitPrice": { "type": "number" },
+        "subtotal": { "type": "number" }
+      },
+      "required": ["productId", "quantity", "unitPrice"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Customer contact information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "address": { "type": "string" },
+        "loyaltyPoints": { "type": "number" }
+      },
+      "required": ["name"]
+    },
+    "Supplier": {
+      "title": "Supplier",
+      "description": "Product supplier information",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "contactPerson": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" }
+      },
+      "required": ["name"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "Business expense record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "category": { "type": "string" },
+        "amount": { "type": "number" },
+        "note": { "type": "string" },
+        "branchId": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" }
+      },
+      "required": ["category", "amount", "date"]
+    }
+  },
+  "firestore": {
+    "branches": {
+      "schema": "Branch",
+      "description": "List of business branches"
+    },
+    "branches/{branchId}/products": {
+      "schema": "Product",
+      "description": "Products available in a specific branch"
+    },
+    "branches/{branchId}/sales": {
+      "schema": "Sale",
+      "description": "Sales records for a specific branch"
+    },
+    "branches/{branchId}/sales/{saleId}/items": {
+      "schema": "SaleItem",
+      "description": "Items in a specific sale"
+    },
+    "categories": {
+      "schema": "Category",
+      "description": "Product categories"
+    },
+    "customers": {
+      "schema": "Customer",
+      "description": "Customers list"
+    },
+    "suppliers": {
+      "schema": "Supplier",
+      "description": "Suppliers list"
+    },
+    "branches/{branchId}/expenses": {
+      "schema": "Expense",
+      "description": "Expenses for a specific branch"
+    },
+    "users": {
+        "schema": {
+            "type": "object",
+            "properties": {
+                "uid": { "type": "string" },
+                "email": { "type": "string" },
+                "role": { "type": "string", "enum": ["Super Admin", "Admin", "Manager", "Cashier"] },
+                "branchId": { "type": "string" },
+                "name": { "type": "string" }
+            }
+        },
+        "description": "User profiles and roles"
+    }
+  }
+}

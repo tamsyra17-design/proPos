@@ -1,0 +1,6 @@
+{
+  "name": "ProTrade IMS & POS",
+  "description": "A professional-grade Inventory Management System with integrated POS, real-time stock tracking, and multi-branch support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["inventory", "pos", "reporting"]
+}
